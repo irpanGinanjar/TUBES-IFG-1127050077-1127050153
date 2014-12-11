@@ -28,7 +28,7 @@ public class FormPetugas extends javax.swing.JFrame {
     public FormPetugas() {
        initComponents();
          this.setLocation(dimensi.width/2 - this.getWidth()/2,dimensi.height/2 - this.getHeight()/2);
-          String[] kolom = {"Id","Nama Petugas","Status"};
+          String[] kolom = {"Id","Nama ","Telepon"};
         _Tampung_tabel_mstr_petugas = new DefaultTableModel(null,kolom){
             
             Class[] types = new Class [] {
@@ -63,7 +63,7 @@ public class FormPetugas extends javax.swing.JFrame {
             _Cnn = getCnn.getConnection();
             HapusTabel();
             String sql = "" +
-                    "   SELECT id_petugas,nama,status" +
+                    "   SELECT id_petugas,nama,no_telepon" +
                     "   FROM petugas" ;
                    
             Statement stat = _Cnn.createStatement();
@@ -106,7 +106,7 @@ public class FormPetugas extends javax.swing.JFrame {
             if(x._Akses.equals("-")){
                 txt_id.setText(x.id_petugas);
                 txt_nama.setText(x.nama);
-                cmb_status.setSelectedItem(x.status);
+                txt_no_telepon.setText(x.no_telepon);
                 txt_password.setText(x.password);
                 txt_id.setEditable(false);
             }
@@ -125,7 +125,6 @@ public class FormPetugas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txt_password = new javax.swing.JPasswordField();
-        cmb_status = new javax.swing.JComboBox();
         txt_id = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel_petugas = new javax.swing.JTable();
@@ -134,6 +133,7 @@ public class FormPetugas extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btn_simpan = new javax.swing.JButton();
+        txt_no_telepon = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -164,11 +164,9 @@ public class FormPetugas extends javax.swing.JFrame {
 
         jLabel3.setText("nama");
 
-        jLabel4.setText("Status");
+        jLabel4.setText("No Telepon");
 
         jLabel5.setText("Password");
-
-        cmb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "USER", "ADMINISTATOR" }));
 
         tabel_petugas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -222,11 +220,11 @@ public class FormPetugas extends javax.swing.JFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_nama, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(txt_password, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(txt_no_telepon))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -259,7 +257,7 @@ public class FormPetugas extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(cmb_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_no_telepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_simpan)
@@ -279,7 +277,7 @@ public class FormPetugas extends javax.swing.JFrame {
             x.Search(txt_id.getText());
             x.id_petugas =  txt_id.getText();
             x.nama =  txt_nama.getText();
-            x.status=  cmb_status.getSelectedItem().toString();
+            x.no_telepon=  txt_no_telepon.getText();
             x.password =  txt_password.getText();
             
             if(x._Akses.equals("-")){
@@ -324,7 +322,6 @@ public class FormPetugas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_simpan;
-    private javax.swing.JComboBox cmb_status;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -338,6 +335,7 @@ public class FormPetugas extends javax.swing.JFrame {
     private javax.swing.JTable tabel_petugas;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_nama;
+    private javax.swing.JTextField txt_no_telepon;
     private javax.swing.JPasswordField txt_password;
     // End of variables declaration//GEN-END:variables
 }
