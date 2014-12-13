@@ -18,7 +18,7 @@ public class List extends javax.swing.JFrame {
     
     public List() {
     initComponents();
-        String[] kolom = {"Id","Nama","Tempat Lahir","Tanggal Lahir","Jenis Kelamin","Nama Ibu","Nama Bpk","Nomor Telepon","Alamat Tinggal","Tahun Angkatan"};
+        String[] kolom = {"Id","Nama","Tempat Lahir","Tanggal Lahir","Jenis Kelamin","Nama Ibu","Nama Bpk","Nomor Telepon","Alamat Tinggal","Tahun Masuk"};
         _Tampung_tabel_mstr_santri = new DefaultTableModel(null,kolom){
             Class[] types = new Class [] {
                java.lang.String.class,
