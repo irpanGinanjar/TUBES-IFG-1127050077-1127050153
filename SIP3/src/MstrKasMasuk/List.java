@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package MstrKasMasuk;
+package MstrKasKeluar;
 
 import Class.DbKoneksi;
 import java.awt.event.ActionEvent;
@@ -14,18 +14,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Class.MstrKasMasuk;
+import Class.MstrKasKeluar;
 import java.text.SimpleDateFormat;
 public class List extends javax.swing.JFrame {
-private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
+private DefaultTableModel _Tampung_tabel_mstr_KasKeluar;
     Connection _Cnn;
     
     
     public List() {
     initComponents();
 
-        String[] kolom = {"No","Tgl Masuk","Keterangan Masuk","Jumlah Uang"};
-        _Tampung_tabel_mstr_KasMasuk = new DefaultTableModel(null,kolom){
+        String[] kolom = {"No","Tgl Keluar","Keterangan Keluar","Jumlah Uang"};
+        _Tampung_tabel_mstr_KasKeluar = new DefaultTableModel(null,kolom){
             Class[] types = new Class [] {
                java.lang.String.class,
                java.lang.String.class,
@@ -39,18 +39,18 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
             }
             // Agar table tidak bisa diedit
             public boolean isCellEditable(int row, int col) {
-                int cola = _Tampung_tabel_mstr_KasMasuk.getColumnCount();
+                int cola = _Tampung_tabel_mstr_KasKeluar.getColumnCount();
                 return (col < cola) ? false : true;
             }
         };
-        tabel_kas_masuk.setModel(_Tampung_tabel_mstr_KasMasuk);
+        tabel_kas_keluar.setModel(_Tampung_tabel_mstr_KasKeluar);
         LoadData();
         LoadData2();
     }
      public void HapusTabel(){
-        int row = _Tampung_tabel_mstr_KasMasuk.getRowCount();
+        int row = _Tampung_tabel_mstr_KasKeluar.getRowCount();
         for (int i = 0;i < row;i++){
-            _Tampung_tabel_mstr_KasMasuk.removeRow(0);
+            _Tampung_tabel_mstr_KasKeluar.removeRow(0);
         }
     }
     
@@ -68,9 +68,9 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
             SimpleDateFormat t3 = new SimpleDateFormat("yyyy-MM-dd");
             String ttg1 = t3.format(txt_Akhir.getDate());
             String sql = "" +
-                    "   SELECT id,tgl_masuk,ket_masuk,jumlah_uang" +
-                    "   FROM kas_masuk" +
-                     "   WHERE tgl_masuk >= '"+ ttg +" 00:00:00' AND tgl_masuk <='"+ ttg1 +" 00:00:00'";
+                    "   SELECT id,tgl_keluar,ket_keluar,jumlah_uang" +
+                    "   FROM kas_keluar" +
+                     "   WHERE tgl_keluar >= '"+ ttg +" 00:00:00' AND tgl_keluar <='"+ ttg1 +" 00:00:00'";
                      
                  
             Statement stat = _Cnn.createStatement();
@@ -84,13 +84,13 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
                 Double jum_uang = res.getDouble(4);
                 ttl=+ttl+jum_uang;
                 Object[] data = {id,tgl,ket,jum_uang};
-                _Tampung_tabel_mstr_KasMasuk.addRow(data);
+                _Tampung_tabel_mstr_KasKeluar.addRow(data);
             }
             txt_jumlah.setValue(ttl);
-            tabel_kas_masuk.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tabel_kas_masuk.getColumnModel().getColumn(1).setPreferredWidth(10);
-            tabel_kas_masuk.getColumnModel().getColumn(2).setPreferredWidth(400);
-            tabel_kas_masuk.getColumnModel().getColumn(3).setPreferredWidth(15);
+            tabel_kas_keluar.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tabel_kas_keluar.getColumnModel().getColumn(1).setPreferredWidth(10);
+            tabel_kas_keluar.getColumnModel().getColumn(2).setPreferredWidth(400);
+            tabel_kas_keluar.getColumnModel().getColumn(3).setPreferredWidth(15);
             
             
          
@@ -120,7 +120,7 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
 
         Tabel_Kas_Masuk = new org.jdesktop.swingx.JXTitledPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabel_kas_masuk = new javax.swing.JTable();
+        tabel_kas_keluar = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         Add = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -139,9 +139,9 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Tabel_Kas_Masuk.setTitle("Data Kas Masuk");
+        Tabel_Kas_Masuk.setTitle("Data Kas Keluar");
 
-        tabel_kas_masuk.setModel(new javax.swing.table.DefaultTableModel(
+        tabel_kas_keluar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -152,7 +152,7 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tabel_kas_masuk);
+        jScrollPane1.setViewportView(tabel_kas_keluar);
 
         javax.swing.GroupLayout Tabel_Kas_MasukLayout = new javax.swing.GroupLayout(Tabel_Kas_Masuk.getContentContainer());
         Tabel_Kas_Masuk.getContentContainer().setLayout(Tabel_Kas_MasukLayout);
@@ -263,10 +263,10 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
 
         jPanel3.setEnabled(false);
 
-        jLabel2.setText("Total Sisa Uang");
+        jLabel2.setText("Total Sisa Uang Rp.");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel1.setText("jumlah Uang");
+        jLabel1.setText("jumlah Uang Rp.");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -345,7 +345,7 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
          try{
-            String kode = tabel_kas_masuk.getValueAt(tabel_kas_masuk.getSelectedRow(), 0).toString();
+            String kode = tabel_kas_keluar.getValueAt(tabel_kas_keluar.getSelectedRow(), 0).toString();
             f = new Entry("", kode, "Edit");
             f.setVisible(true);
             f.btn_keluar.addActionListener(new java.awt.event.ActionListener() {
@@ -365,10 +365,10 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
-       String kode = tabel_kas_masuk.getValueAt(tabel_kas_masuk.getSelectedRow(), 0).toString();
-        int jawab = JOptionPane.showConfirmDialog(this,"Hapus ? Data Kas Masuk : "+kode,"Konfirmasi",JOptionPane.YES_NO_OPTION);
+       String kode = tabel_kas_keluar.getValueAt(tabel_kas_keluar.getSelectedRow(), 0).toString();
+        int jawab = JOptionPane.showConfirmDialog(this,"Hapus ? Data Kas Keluar : "+kode,"Konfirmasi",JOptionPane.YES_NO_OPTION);
         if (jawab == JOptionPane.YES_OPTION){
-            MstrKasMasuk x = new MstrKasMasuk();
+            MstrKasKeluar x = new MstrKasKeluar();
             x.Delete(kode);
             x.Delete2(kode);
             LoadData();
@@ -426,7 +426,7 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabel_kas_masuk;
+    private javax.swing.JTable tabel_kas_keluar;
     private org.jdesktop.swingx.JXDatePicker txt_Akhir;
     private org.jdesktop.swingx.JXDatePicker txt_Awal;
     private javax.swing.JFormattedTextField txt_jumlah;

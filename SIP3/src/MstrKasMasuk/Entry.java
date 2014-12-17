@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package MstrKasMasuk;
+package MstrKasKeluar;
 
 import Class.DbKoneksi;
-import Class.MstrKasMasuk;
+import Class.MstrKasKeluar;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -46,14 +46,15 @@ public class Entry extends javax.swing.JFrame {
     }
     private void Search(){
         try {
-            MstrKasMasuk x = new MstrKasMasuk();
+            MstrKasKeluar x = new MstrKasKeluar();
             x.Search(_ID);
             if(x._Akses.equals("-")){
                 txt_id.setText(x.id);
                 String tgl = StringUtils.substringBeforeLast(x.tgl," ");
-                txt_tgl_masuk.setDate(java.sql.Date.valueOf(tgl));
+                txt_tgl_keluar.setDate(java.sql.Date.valueOf(tgl));
                 txt_ket.setText(x.ket);
                 txt_jum.setText(x.jum_uang);
+               
                 txt_id.setEditable(false);
             }
         } catch(Exception ex) {
@@ -73,14 +74,15 @@ public class Entry extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jXTitledPanel1 = new org.jdesktop.swingx.JXTitledPanel();
-        txt_jum = new javax.swing.JTextField();
         txt_id = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txt_tgl_masuk = new org.jdesktop.swingx.JXDatePicker();
-        txt_ket = new javax.swing.JTextField();
+        txt_tgl_keluar = new org.jdesktop.swingx.JXDatePicker();
+        txt_jum = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt_ket = new javax.swing.JEditorPane();
         jPanel3 = new javax.swing.JPanel();
         btn_simpan = new javax.swing.JButton();
         btn_batal = new javax.swing.JButton();
@@ -122,9 +124,9 @@ public class Entry extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jXTitledPanel1.setTitle("+ Manipulasi Kas Masuk");
+        jXTitledPanel1.setTitle("+ Manipulasi Kas Keluar");
 
-        jLabel5.setText("jum_uang");
+        jLabel5.setText("Jumlah Uang Rp.");
 
         jLabel4.setText("Keterangan");
 
@@ -132,47 +134,63 @@ public class Entry extends javax.swing.JFrame {
 
         jLabel1.setText("Id ");
 
+        txt_jum.setText("-");
+        txt_jum.setToolTipText("-"); // NOI18N
+        txt_jum.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txt_jum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_jumActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setViewportView(txt_ket);
+
         javax.swing.GroupLayout jXTitledPanel1Layout = new javax.swing.GroupLayout(jXTitledPanel1.getContentContainer());
         jXTitledPanel1.getContentContainer().setLayout(jXTitledPanel1Layout);
         jXTitledPanel1Layout.setHorizontalGroup(
             jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jXTitledPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
                 .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_ket, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_tgl_masuk, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_jum, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(189, Short.MAX_VALUE))
+                    .addGroup(jXTitledPanel1Layout.createSequentialGroup()
+                        .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jXTitledPanel1Layout.createSequentialGroup()
+                        .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_jum, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_tgl_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 198, Short.MAX_VALUE))))
         );
         jXTitledPanel1Layout.setVerticalGroup(
             jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jXTitledPanel1Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(txt_tgl_masuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
                     .addGroup(jXTitledPanel1Layout.createSequentialGroup()
-                        .addComponent(txt_ket, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(txt_tgl_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4))
+                    .addGroup(jXTitledPanel1Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
                         .addGroup(jXTitledPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(txt_jum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                            .addComponent(txt_jum, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         btn_simpan.setText("Simpan");
@@ -249,14 +267,14 @@ public class Entry extends javax.swing.JFrame {
 
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
          try{
-            MstrKasMasuk x = new MstrKasMasuk();
+            MstrKasKeluar x = new MstrKasKeluar();
             x.Search(txt_id.getText());
             x.id =  txt_id.getText();
             SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
-            String _tgl = t.format(txt_tgl_masuk.getDate());
+            String _tgl = t.format(txt_tgl_keluar.getDate());
             x.tgl =  _tgl;
             x.ket =  txt_ket.getText();
-            x.jum_uang =  txt_jum.getText();
+            x.jum_uang = txt_jum.getText();
             if(x._Akses.equals("-")){
                 x.UpdateData();
                 x.UpdateData2();
@@ -281,6 +299,10 @@ public class Entry extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_keluarActionPerformed
 
+    private void txt_jumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_jumActionPerformed
+
+    }//GEN-LAST:event_txt_jumActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_batal;
@@ -294,11 +316,12 @@ public class Entry extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private org.jdesktop.swingx.JXTitledPanel jXTitledPanel1;
     public javax.swing.JTextField txt_id;
-    private javax.swing.JTextField txt_jum;
-    private javax.swing.JTextField txt_ket;
-    private org.jdesktop.swingx.JXDatePicker txt_tgl_masuk;
+    private javax.swing.JFormattedTextField txt_jum;
+    private javax.swing.JEditorPane txt_ket;
+    private org.jdesktop.swingx.JXDatePicker txt_tgl_keluar;
     // End of variables declaration//GEN-END:variables
  
 
