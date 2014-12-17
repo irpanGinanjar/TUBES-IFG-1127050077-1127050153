@@ -16,6 +16,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Class.MstrKasMasuk;
 import java.text.SimpleDateFormat;
+
+import java.util.HashMap;
+import Class.FrmViewReport;
+import Class.print_kas_masuk;
 public class List extends javax.swing.JFrame {
 private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
     Connection _Cnn;
@@ -263,10 +267,10 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
 
         jPanel3.setEnabled(false);
 
-        jLabel2.setText("Total Sisa Uang");
+        jLabel2.setText("Total Sisa Uang Rp.");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel1.setText("jumlah Uang");
+        jLabel1.setText("jumlah Uang Rp.");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -385,7 +389,18 @@ private DefaultTableModel _Tampung_tabel_mstr_KasMasuk;
     }//GEN-LAST:event_AddActionPerformed
    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
+         try{
+            HashMap param = new HashMap();
+            param.put("jumlah",txt_jumlah.getValue());
+
+            print_kas_masuk bku = new print_kas_masuk(_Tampung_tabel_mstr_KasMasuk);
+            String fileName = "src/print/kas_masuk.jasper";
+            FrmViewReport viewer = new FrmViewReport(bku,fileName,param);
+            viewer.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showConfirmDialog(this, ex);
+        }
+            
     }//GEN-LAST:event_jButton5ActionPerformed
     private void LoadData2(){
         try{
